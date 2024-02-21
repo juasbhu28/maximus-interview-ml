@@ -197,6 +197,8 @@ Para la validación de headers, se utilizó la dependencia:
 
 Para la generación de reportes de cobertura, se utilizó la dependencia:
 
+- **Jacoco**
+
 ### Documentación
 
 La documentación de la API se encuentra en Swagger, y se puede acceder a través de la siguiente URL:
