@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  java-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8080:8080"
