@@ -8,6 +8,7 @@ import com.dictionary.common.constant.RouteMapping;
 import com.dictionary.infrastructure.web.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -35,7 +36,7 @@ public class AuthController {
     @Autowired
     private JwtUtils jwtUtils;
 
-    @PostMapping(RouteMapping.LOGIN_API)
+    @PostMapping(value = RouteMapping.LOGIN_API, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
         try {
             if (authRequest.getUsername() == null || authRequest.getPassword() == null) {
@@ -54,26 +55,4 @@ public class AuthController {
         }
     }
 
-    @PostMapping(RouteMapping.LOGIN_API + 2)
-    public ResponseEntity<AuthResponse> loginDos(@RequestBody AuthRequest authRequest) {
-        try {
-            if (authRequest.getUsername() == null || authRequest.getPassword() == null) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-
-            UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword());
-            Authentication authentication = this.authenticationManager.authenticate(login);
-
-            System.out.println(authentication.isAuthenticated());
-            System.out.println(authentication.getPrincipal());
-
-            UserDetails userDetails = userSecurityService.loadUserByUsername(authRequest.getUsername());
-            String jwt = jwtUtils.createToken(userDetails);
-
-            return new ResponseEntity<>(new AuthResponse(jwt), HttpStatus.OK);
-
-        } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-    }
 }

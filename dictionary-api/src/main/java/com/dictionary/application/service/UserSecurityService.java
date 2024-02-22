@@ -25,7 +25,6 @@ public class UserSecurityService implements UserDetailsService {
         com.dictionary.domain.model.User userEntity = userRepository.findByUsername(username)
                 .orElseThrow( () -> new UsernameNotFoundException("User not found "));
 
-
         return User.builder()
                 .username(userEntity.getUsername())
                 .password(userEntity.getPassword())

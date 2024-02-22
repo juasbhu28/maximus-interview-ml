@@ -22,11 +22,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-
-    @Bean
-    public JwtFilter jwtFilter() {
-        return new JwtFilter();
-    }
+    @Value("${app.security.ignored}")
+    private String[] authWhiteList;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -39,13 +36,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth ->
                                 auth
-                                        .requestMatchers("/public/**").permitAll()
+                                        .requestMatchers(authWhiteList).permitAll()
+                                        .requestMatchers(RouteMapping.PUBLIC_API + "/**").permitAll()
                                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
-
         return http.build();
+    }
+
+    @Bean
+    public JwtFilter jwtFilter() {
+        return new JwtFilter();
     }
 
     @Bean
