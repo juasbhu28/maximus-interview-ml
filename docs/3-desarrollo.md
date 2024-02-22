@@ -31,9 +31,9 @@ Formato de Rama y de  Pull Request #[número-tarea]-[nombre] (ejemplo: #1-crear-
 | ---- | ----------- | ------------------- |
 | #01-create-makefile| Crear Makefile - Dockerfile | Dockerfile creado y funcionando en localhost |
 | #02-crear-ci-cd | Crear CI/CD github actions | CI/CD - push flow - Pr flow - checkstyle - covertura |
-| #03_creating_files_structure | Crear estructura de carpetas | Estructura de carpetas creada |
-| #04_adding_security | Agregar seguridad | Seguridad agregada para recibir header X-AUTH-TOKEN |
-| #05_adding_swagger | Agregar swagger | Swagger agregado |
+| #03_creating_config | Crear estructura de carpetas | Estructura de carpetas creada |
+| #04_testing_security | Agregar seguridad | Seguridad agregada para recibir header X-AUTH-TOKEN |
+| #05_testin3_swagger | Agregar swagger | Swagger agregado |
 | #04-crear-entidades | Crear entidades | Entidades creadas |
 | #05-crear-repositorios | Crear repositorios | Repositorios creados |
 | #06-crear-servicios | Crear servicios | Servicios creados junto con test|

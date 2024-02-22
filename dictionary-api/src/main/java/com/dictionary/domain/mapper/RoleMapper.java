@@ -1,7 +1,7 @@
-package com.dictionary.application.mapper;
+package com.dictionary.domain.mapper;
 
-import com.dictionary.application.model.Role;
-import com.dictionary.domain.entity.RoleEntity;
+import com.dictionary.domain.model.Role;
+import com.dictionary.infrastructure.persistence.entity.RoleEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

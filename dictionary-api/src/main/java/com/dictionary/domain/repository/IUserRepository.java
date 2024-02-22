@@ -1,10 +1,8 @@
 package com.dictionary.domain.repository;
 
-import com.dictionary.application.model.User;
-import com.dictionary.domain.entity.UserEntity;
-
+import com.dictionary.domain.model.User;
 import java.util.Optional;
 
 public interface IUserRepository {
-    Optional<UserEntity> findByUsername(String username);
+    Optional<User> findByUsername(String username);
 }

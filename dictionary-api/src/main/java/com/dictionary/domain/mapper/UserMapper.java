@@ -1,9 +1,9 @@
-package com.dictionary.application.mapper;
+package com.dictionary.domain.mapper;
 
-import com.dictionary.application.model.Role;
-import com.dictionary.application.model.User;
-import com.dictionary.domain.entity.RoleEntity;
-import com.dictionary.domain.entity.UserEntity;
+import com.dictionary.domain.model.Role;
+import com.dictionary.domain.model.User;
+import com.dictionary.infrastructure.persistence.entity.RoleEntity;
+import com.dictionary.infrastructure.persistence.entity.UserEntity;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
