@@ -20,3 +20,14 @@ spring:
       format-sql: true
     show-sql: true
     database: H2
+
+app:
+  jwt:
+    secret: secret
+    issuer: juansebohu
+    expiration:
+      access-token: 86400000 # 1 day
+      refresh-token: 2592000000 # 30 days
+
+  security:
+    ignored: /actuator/health/**, /h2/**, /swagger-resources/**, /swagger-ui.html, /v2/api-docs, /webjars/**, /api/**
