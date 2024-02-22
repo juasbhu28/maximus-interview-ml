@@ -16,16 +16,8 @@ build_docker:
 run_docker:
 	docker-compose up
 
-update_api:
-	@echo "Updating API..."
-	@echo "Building docker..."
-	make build_docker
-	@echo "Running docker..."
-	make run_docker
+test_api:
+	@echo "Testing API..."
+	@echo "Building API..."
+	cd dictionary-api && ./gradlew clean build test
 
-report:
-	@./dictionary-api/gradlew clean build
-	@./dictionary-api/gradlew test
-	@./dictionary-api/gradlew jacocoTestReport
-	@./dictionary-api/gradlew sonarqube
-	@./dictionary-api/gradlew jacocoTestCoverageVerification

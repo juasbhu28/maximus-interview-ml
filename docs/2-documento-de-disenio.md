@@ -238,3 +238,9 @@ Se utilizó GitHub Actions para la integración continua y despliegue continuo.
 - Las estadísticas de las publicaciones procesadas, deben ser almacenadas en una base de datos? o solo se muestran en el resultado? (Almacenar en una base de datos, permitiría tener un histórico de las estadísticas y poder consultarlas en cualquier momento)
 
 - Las publicaciones que se reciben, pueden ser muy grandes? o siempre serán pequeñas? (Esto es importante para definir el tamaño de los campos en la base de datos)
+
+### Expectativas
+
+- Se espera que el microservicio sea escalable y tolerante a fallos.
+- Se espera que el microservicio sea fácil de mantener y de entender.
+
