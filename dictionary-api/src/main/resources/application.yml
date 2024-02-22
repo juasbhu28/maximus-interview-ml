@@ -2,7 +2,7 @@ spring:
   application:
     name: dictionary-api
   servlet:
-    context-path: /dictionary-api/
+    context-path: /dictionary-api
   profiles:
     active: dev
 

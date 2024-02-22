@@ -1,6 +1,5 @@
-package com.dictionary.application.model;
+package com.dictionary.domain.model;
 
-import com.dictionary.domain.entity.RoleEntity;
 import lombok.Getter;
 import lombok.Setter;
 

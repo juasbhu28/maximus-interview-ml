@@ -30,13 +30,19 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private UserSecurityService userSecurityService;
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
 
+            if (pathAllow(request.getRequestURI())) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             String jwtHeader = request.getHeader(X_AUTH_USER);
-            if (jwtHeader == null ) {
+            if (jwtHeader == null || jwtHeader.isEmpty()) {
                 throw new JWTVerificationException("Invalid Authorization header");
             }
 
@@ -58,9 +64,14 @@ public class JwtFilter extends OncePerRequestFilter {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("Unauthorized");
             log.error("Error: ", e);
-        } finally{
-            filterChain.doFilter(request, response);
         }
+
+        filterChain.doFilter(request, response);
+
     }
 
+    private boolean pathAllow(String path) {
+        //Evaluate if the path contains /dictionary-api/vi/public/
+        return path.contains("/dictionary-api/v1/public/");
+    }
 }

@@ -1,4 +1,4 @@
-package com.dictionary.domain.entity;
+package com.dictionary.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "role", schema = "auth")
+@Table(name = "roles")
 public class RoleEntity {
 
     @Id

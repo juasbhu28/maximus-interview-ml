@@ -1,4 +1,4 @@
-package com.dictionary.domain.entity;
+package com.dictionary.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user", schema = "library_auth")
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor

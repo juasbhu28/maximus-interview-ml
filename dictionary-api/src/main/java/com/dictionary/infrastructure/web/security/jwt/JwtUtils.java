@@ -5,9 +5,12 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class JwtUtils {
 
     @Value("${app.jwt.expiration.access-token}")
@@ -19,21 +22,28 @@ public class JwtUtils {
     @Value("${app.jwt.issuer}")
     private String getIssuer;
 
-    private final Algorithm getAlgorithm = Algorithm.HMAC256(getSecretKey);
+    private Algorithm algorithm;
 
-    public String createToken(String subject) {
+    // Lazily initialize the Algorithm
+    private Algorithm getAlgorithm() {
+        if (algorithm == null) {
+            algorithm = Algorithm.HMAC256(getSecretKey);
+        }
+        return algorithm;
+    }
+    public String createToken(UserDetails userDetails) {
         var tokenBuilder = JWT.create()
-                .withSubject(subject)
+                .withSubject(userDetails.getUsername())
                 .withIssuer(getIssuer)
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + getExpirationAccessToken));
 
-        return tokenBuilder.sign(getAlgorithm);
+        return tokenBuilder.sign(getAlgorithm());
     }
 
     public boolean verifyToken(String jwt) {
         try {
-            JWT.require(getAlgorithm)
+            JWT.require(getAlgorithm())
                     .build()
                     .verify(jwt);
             return true;

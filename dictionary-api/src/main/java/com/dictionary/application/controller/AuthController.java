@@ -1,3 +1,79 @@
 package com.dictionary.application.controller;
 
-public class AuthController {}
+
+import com.dictionary.application.dto.AuthRequest;
+import com.dictionary.application.dto.AuthResponse;
+import com.dictionary.application.service.UserSecurityService;
+import com.dictionary.common.constant.RouteMapping;
+import com.dictionary.infrastructure.web.security.jwt.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(RouteMapping.AUTH_API_ROOT)
+public class AuthController {
+
+    private AuthenticationManager authenticationManager;
+    private UserSecurityService userSecurityService;
+
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager, UserSecurityService userSecurityService) {
+        this.authenticationManager = authenticationManager;
+        this.userSecurityService = userSecurityService;
+    }
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @PostMapping(RouteMapping.LOGIN_API)
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
+        try {
+            if (authRequest.getUsername() == null || authRequest.getPassword() == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    authRequest.getUsername(), authRequest.getPassword()));
+            UserDetails userDetails = userSecurityService.loadUserByUsername(authRequest.getUsername());
+            String jwt = jwtUtils.createToken(userDetails);
+
+            return new ResponseEntity<>(new AuthResponse(jwt), HttpStatus.OK);
+
+        } catch (BadCredentialsException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @PostMapping(RouteMapping.LOGIN_API + 2)
+    public ResponseEntity<AuthResponse> loginDos(@RequestBody AuthRequest authRequest) {
+        try {
+            if (authRequest.getUsername() == null || authRequest.getPassword() == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
+            UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword());
+            Authentication authentication = this.authenticationManager.authenticate(login);
+
+            System.out.println(authentication.isAuthenticated());
+            System.out.println(authentication.getPrincipal());
+
+            UserDetails userDetails = userSecurityService.loadUserByUsername(authRequest.getUsername());
+            String jwt = jwtUtils.createToken(userDetails);
+
+            return new ResponseEntity<>(new AuthResponse(jwt), HttpStatus.OK);
+
+        } catch (BadCredentialsException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+}
