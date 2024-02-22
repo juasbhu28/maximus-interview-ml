@@ -29,14 +29,16 @@ Formato de Rama y de  Pull Request #[número-tarea]-[nombre] (ejemplo: #1-crear-
 | Task | Description | Definition of Done |
 | ---- | ----------- | ------------------- |
 | #01-create-makefile| Crear Makefile - Dockerfile | Dockerfile creado y funcionando en localhost |
-| #02-crear-ci-cd | Crear CI/CD github actions | CI/CD github actions creado |
-
-
-
+| #02-crear-ci-cd | Crear CI/CD github actions | CI/CD - push flow - Pr flow - checkstyle - covertura |
+| #03-crear-estructura de carpetas | Crear estructura de carpetas | Estructura de carpetas creada |
+| #04-crear-entidades | Crear entidades | Entidades creadas |
+| #05-crear-repositorios | Crear repositorios | Repositorios creados |
+| #06-crear-servicios | Crear servicios | Servicios creados junto con test|
+| #07-crear-controladores | Crear controladores | Controladores creados junto con test |
 
 ### Cobertura
 
-La cobertura del código es del TODO: DEFINIR PORCENTAJE Y RUTA 
+La cobertura del código se hace mediante jacoco y gradlew se encarga de evaluarlo en la tarea 
 ### Reporte
 
 El reporte de cobertura se encuentra en la siguiente ruta:

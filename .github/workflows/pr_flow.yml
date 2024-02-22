@@ -1,0 +1,16 @@
+name: PR flows
+run-name: Push Checks - ${{ github.event.pull_request.title }}
+
+on:
+  pull_request:
+    types: [opened, closed]
+    branches:
+      - 'feature/*'
+jobs: 
+  build: 
+    runs-on: ubuntu-latest 
+    steps: 
+      - name: Checkout code 
+        uses: actions/checkout@v2 
+
+## TODO:  merge with develop and then with main if test ok
