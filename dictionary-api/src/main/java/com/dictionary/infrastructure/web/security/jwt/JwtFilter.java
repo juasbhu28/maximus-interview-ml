@@ -19,7 +19,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Slf4j
-@Component
 public class JwtFilter extends OncePerRequestFilter {
 
     private static final String X_AUTH_USER = "X-AUTH-USER";

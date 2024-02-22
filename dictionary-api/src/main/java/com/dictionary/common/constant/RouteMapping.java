@@ -3,7 +3,7 @@ package com.dictionary.common.constant;
 public final class RouteMapping {
     public static final String VERSION = "v1";
     public static final String ROOT = "/" + VERSION;
-    public static final String PUBLIC_API = "/public";
+    public static final String PUBLIC_API = VERSION + "/public";
     public static final String PRIVATE_API = ROOT + "/private";
 
     //AUTH
