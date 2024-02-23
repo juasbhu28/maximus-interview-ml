@@ -4,8 +4,6 @@ run-name: Push Checks - ${{ github.event.pull_request.title }}
 on:
   pull_request:
     types: [closed]
-    branches:
-      - 'feature/*'
 
 jobs:
   build:
