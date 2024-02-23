@@ -4,10 +4,10 @@ import lombok.*;
 
 @Setter
 @Getter
-public class AuthResponse {
+public class AuthResponseDto {
     private String accessToken;
 
-    public AuthResponse(String accessToken) {
+    public AuthResponseDto(String accessToken) {
         this.accessToken = accessToken;
     }
 }

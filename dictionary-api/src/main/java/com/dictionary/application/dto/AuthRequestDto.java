@@ -1,17 +1,15 @@
 package com.dictionary.application.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class AuthRequest {
+public class AuthRequestDto {
     @NotBlank
     private String username;
 
