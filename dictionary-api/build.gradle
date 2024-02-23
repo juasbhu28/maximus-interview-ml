@@ -72,7 +72,6 @@ def excludesClasses = [
 							'**/config/**/*.class',
 							'**/exception/**/*.class',
 							'**/mapper/**/*.class',
-							'**/service/**/*.class',
 							'**/entity/**/*.class',
 					]
 

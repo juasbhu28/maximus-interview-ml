@@ -13,6 +13,7 @@ import com.dictionary.application.dto.AuthRequest;
 import com.dictionary.application.service.UserSecurityService;
 import com.dictionary.common.constant.RouteMapping;
 import com.dictionary.infrastructure.persistence.repository.UserRepositoryImpl;
+import com.dictionary.infrastructure.web.security.jwt.JwtFilter;
 import com.dictionary.infrastructure.web.security.jwt.JwtUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManagerFactory;
@@ -47,10 +48,11 @@ class AuthControllerTest {
     private UserSecurityService userSecurityService;
 
     @MockBean
-    private UserRepositoryImpl userRepository;
+    private JwtUtils jwtUtils;
 
     @MockBean
-    private JwtUtils jwtUtils;
+    private UserRepositoryImpl userRepository;
+
 
     @Test
     void givenRequestEmpty_ShouldReturnBadRequest() throws Exception {

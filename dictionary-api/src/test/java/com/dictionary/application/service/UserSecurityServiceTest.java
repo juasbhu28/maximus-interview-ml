@@ -27,6 +27,7 @@ class UserSecurityServiceTest {
   @InjectMocks
   private UserSecurityService userSecurityService;
 
+
   @Test
   void loadUserByUsername_whenUserExists_thenReturnsUserWithAuthorities() {
     // Arrange
