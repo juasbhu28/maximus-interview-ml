@@ -1,8 +1,8 @@
 package com.dictionary.application.controller;
 
 
-import com.dictionary.application.dto.AuthRequest;
-import com.dictionary.application.dto.AuthResponse;
+import com.dictionary.application.dto.AuthRequestDto;
+import com.dictionary.application.dto.AuthResponseDto;
 import com.dictionary.application.service.UserSecurityService;
 import com.dictionary.common.constant.RouteMapping;
 import com.dictionary.infrastructure.web.security.jwt.JwtUtils;
@@ -38,18 +38,18 @@ public class AuthController {
     private JwtUtils jwtUtils;
 
     @PostMapping(value = RouteMapping.LOGIN_API, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequestDto authRequestDto) {
         try {
-            if (isNullOrEmpty(authRequest.getUsername())  || isNullOrEmpty(authRequest.getPassword())) {
+            if (isNullOrEmpty(authRequestDto.getUsername())  || isNullOrEmpty(authRequestDto.getPassword())) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
 
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    authRequest.getUsername().trim(), authRequest.getPassword().trim()));
-            UserDetails userDetails = userSecurityService.loadUserByUsername(authRequest.getUsername());
+                    authRequestDto.getUsername().trim(), authRequestDto.getPassword().trim()));
+            UserDetails userDetails = userSecurityService.loadUserByUsername(authRequestDto.getUsername());
             String jwt = jwtUtils.createToken(userDetails);
 
-            return new ResponseEntity<>(new AuthResponse(jwt), HttpStatus.OK);
+            return new ResponseEntity<>(new AuthResponseDto(jwt), HttpStatus.OK);
 
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

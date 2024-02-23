@@ -1,6 +1,6 @@
 package com.dictionary.application.controller;
 
-import com.dictionary.application.dto.SiteResponseDTO;
+import com.dictionary.application.dto.SiteResponseDto;
 import com.dictionary.application.service.DictionaryService;
 import com.dictionary.common.constant.RouteMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class DictionaryController {
     private DictionaryService dictionaryService;
 
     @GetMapping(RouteMapping.GET_DICTIONARY)
-    public ResponseEntity<SiteResponseDTO> getDictionary() {
-        return new ResponseEntity<>(new SiteResponseDTO(dictionaryService.getAllSiteDtos()), HttpStatus.OK);
+    public ResponseEntity<SiteResponseDto> getDictionary() {
+        return new ResponseEntity<>(new SiteResponseDto(dictionaryService.getAllSiteDtos()), HttpStatus.OK);
     }
 
 }
