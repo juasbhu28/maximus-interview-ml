@@ -1,6 +1,7 @@
 package com.dictionary.application.service;
 
 import com.dictionary.domain.repository.IUserRepository;
+import com.dictionary.infrastructure.persistence.repository.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,11 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserSecurityService implements UserDetailsService {
 
-
-    private final IUserRepository userRepository;
+    private final UserRepositoryImpl userRepository;
 
     @Autowired
-    public UserSecurityService(IUserRepository userRepository) {
+    public UserSecurityService(UserRepositoryImpl userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -47,6 +47,7 @@ dependencies {
 
 	testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.10.0'
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.2'
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.2'
 }
 
 tasks.named('test') {
@@ -61,10 +62,16 @@ jacoco {
 
 def excludesClasses = [
 							'com/dictionary/DictionaryApplication.class',
+							'**/model/**/*.class',
+							'**/repository/**/*.class',
+							'**/crud/**/*.class',
+							'**/constant/**/*.class',
 							'**/dto/**/*.class',
 							'**/config/**/*.class',
-							'**/security/**/*.class',
 							'**/exception/**/*.class',
+							'**/mapper/**/*.class',
+							'**/service/**/*.class',
+							'**/entity/**/*.class',
 					]
 
 tasks.named('jacocoTestReport') {

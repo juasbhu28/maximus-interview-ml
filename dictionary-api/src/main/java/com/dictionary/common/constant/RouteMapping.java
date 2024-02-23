@@ -1,10 +1,14 @@
 package com.dictionary.common.constant;
 
 public final class RouteMapping {
-    public static final String VERSION = "v1";
-    public static final String ROOT = "/" + VERSION;
-    public static final String PUBLIC_API = VERSION + "/public";
-    public static final String PRIVATE_API = ROOT + "/private";
+
+    private RouteMapping() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    public static final String ROOT_VERSION = "/v1";
+    public static final String PUBLIC_API = ROOT_VERSION + "/public";
+    public static final String PRIVATE_API = ROOT_VERSION + "/private";
 
     //AUTH
 
