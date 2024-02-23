@@ -2,6 +2,11 @@ version: '3.8'
 
 services:
   java-api:
+    environment:
+        - SPRING_PROFILES_ACTIVE=prod
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/dictionaryDB
+        - SPRING_DATASOURCE_USERNAME=dictionary
+        - SPRING_DATASOURCE_PASSWORD=password
     build:
       context: .
       dockerfile: Dockerfile.api
@@ -9,6 +14,7 @@ services:
         CACHEBUST: ${CACHEBUST}
     ports:
       - "8080:8080"
+      
 
   postgres-db:
     build:
