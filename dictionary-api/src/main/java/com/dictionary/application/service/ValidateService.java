@@ -52,7 +52,7 @@ public class ValidateService {
         statsRepository.save(stats);
     }
 
-    public ValidateResponseDto algoritmo(ValidateRequestDto request){
+    private ValidateResponseDto algoritmo(ValidateRequestDto request){
 
         ValidateResponseDto response = new ValidateResponseDto();
         response.setSites(new HashMap<>());
