@@ -19,12 +19,13 @@ public final class RouteMapping {
     public static final String GET_DICTIONARY = "/";
 
     //VALIDATE
-
     public static final String VALIDATE_API_ROOT = PRIVATE_API + "/validate";
     public static final String VALIDATE = "/";
 
+    //STAT
 
-
+    public static final String STATS_API_ROOT = PRIVATE_API + "/stats";
+    public static final String GET_STATS = "/";
 
 }
 
