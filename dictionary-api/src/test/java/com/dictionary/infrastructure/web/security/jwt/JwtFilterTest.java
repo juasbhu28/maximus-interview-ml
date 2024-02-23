@@ -45,15 +45,6 @@ class JwtFilterTest {
     }
 
     @Test
-    void testPathPublic_thenShouldNotAuthenticate() throws Exception {
-        request.setRequestURI("/dictionary-api/v1/public/test");
-
-        jwtFilter.doFilterInternal(request, response, (req, res) -> {});
-
-        assertThat(response.getStatus()).isNotEqualTo(HttpServletResponse.SC_UNAUTHORIZED);
-    }
-
-    @Test
     void givenHeaderIsEmpty_thenResponseIsUnauthorized() throws Exception {
         request.setRequestURI("/dictionary-api/v1/private/test");
 

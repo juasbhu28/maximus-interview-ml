@@ -22,8 +22,14 @@ Este proyecto es un servicio RESTFul desarrollado en Java Spring Boot, que permi
 
 ### Endpoint test
 
-TODO: Deploy online URL
+[Auth ](http://localhost:8080/dev/dictionary-api/v1/public/auth/login)
+>http://localhost:8080/dev/dictionary-api/v1/public/auth/login
 
+http://localhost:8080/dev/dictionary-api/v1/public/auth/login
+
+### Swagger
+
+http://localhost:8080/dev/dictionary-api/swagger-ui/index.html
 ---
 
 &copy; 2024 JuanSe Botello Hurtado &bull; [LinkedIn Profile](https://www.linkedin.com/in/jbotellohu/)

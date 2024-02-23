@@ -22,10 +22,11 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
 
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
 
 app:
   jwt:
@@ -35,10 +36,11 @@ app:
       access-token: 86400000 # 1 day
 
   security:
-    ignored: /swagger-resources/**, /swagger-ui.html, /v2/api-docs
+    ignored: /swagger-ui/**, /v3/api-docs/**
 
 
-# For debugging purposes - Logging
+
+    # For debugging purposes - Logging
 
 #logging:
   #level:
