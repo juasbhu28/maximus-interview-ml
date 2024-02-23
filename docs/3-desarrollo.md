@@ -16,7 +16,7 @@ Este documento describe el proceso de desarrollo del proyecto.
 - [x] Crear CI/CD github actions. GitFlow procces
   - [x] Over features - Pass tests - % Covertura - Merge to develop
   - [x] Over develop - Pass test - Merge to main
-- [ ] Definición de tasking
+- [x] Definición de tasking
 
 
 [Volver al inicio](/README.md)
@@ -32,11 +32,9 @@ Formato de Rama y de  Pull Request #[número-tarea]-[nombre] (ejemplo: #1-crear-
 | #01-create-makefile| Crear Makefile - Dockerfile | Dockerfile creado y funcionando en localhost |
 | #02-crear-ci-cd | Crear CI/CD github actions | CI/CD - push flow - Pr flow - checkstyle - covertura |
 | #03_creating_config | Crear estructura de carpetas | Estructura de carpetas creada - auth JWT - Swagger |
-| #05-crear-definiciones-dictionary | Crear entidades | Crear lógica de negocio para /dictionary |
-| #06-crear-repositorios | Crear repositorios | Repositorios creados |
-| #07-crear-servicios | Crear servicios | Servicios creados junto con test|
-| #08-crear-controladores | Crear controladores | Controladores creados junto con test |
-
+| #04-crear-definiciones-dictionary | Crear entidades | Crear lógica de negocio para /dictionary |
+| #05-crear-definiciones-validate | Crear entidades | Crear lógica de negocio para /validate |
+| #06-crear-definiciones-stats | Crear entidades | Crear lógica de negocio para /stats |
 
 
 
@@ -45,13 +43,7 @@ Formato de Rama y de  Pull Request #[número-tarea]-[nombre] (ejemplo: #1-crear-
 La cobertura del código se hace mediante jacoco y gradlew se encarga de evaluarlo en la tarea 
 ### Reporte
 
-El reporte de cobertura se encuentra en la siguiente ruta:
-
-- TODO: add url
-
-## 💡 Ideas
-
-🌐🌱💡⭐
+El reporte de cobertura se realizo con Jacoco y se encuentra en la carpeta `build/reports/jacoco/test/html/index.html`
 
 ### 📚 Referencias
 

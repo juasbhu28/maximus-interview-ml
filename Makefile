@@ -12,6 +12,7 @@ run_all:
 	make build_docker
 	@echo "Running docker..."
 	make run_docker
+	make exe_sql
 
 build_docker:
 	docker-compose up --build -d
@@ -26,3 +27,4 @@ test_api:
 	@echo "Testing API..."
 	@echo "Building API..."
 	cd dictionary-api && ./gradlew clean build test
+
