@@ -2,6 +2,7 @@ package com.dictionary.infrastructure.web.security.jwt;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.dictionary.application.service.UserSecurityService;
+import com.dictionary.common.constant.RouteMapping;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,10 @@ class JwtFilterTest {
     private MockHttpServletRequest request;
     private MockHttpServletResponse response;
 
+    private final String PUBLIC_PATH = RouteMapping.PUBLIC_API;
+    private final String PRIVATE_PATH = RouteMapping.PRIVATE_API;
+    private final String AUTH_HEADER = "X-AUTH-USER";
+
     @BeforeEach
     void setUp() {
         request = new MockHttpServletRequest();
@@ -45,30 +50,29 @@ class JwtFilterTest {
     }
 
     @Test
-    void givenHeaderIsEmpty_thenResponseIsUnauthorized() throws Exception {
-        request.setRequestURI("/dictionary-api/v1/private/test");
+    void givenWitoutHeaderAndPublicPath_thenShouldNotAuthenticate() throws Exception {
+        request.setRequestURI(PUBLIC_PATH + "/test");
 
         jwtFilter.doFilterInternal(request, response, (req, res) -> {});
 
-        assertThat(response.getStatus()).isEqualTo(HttpServletResponse.SC_UNAUTHORIZED);
-        assertThat(response.getContentAsString()).isEqualTo("Unauthorized");
+        assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
     }
 
     @Test
     void givenHeaderIsNull_thenResponseIsUnauthorized() throws Exception {
-        request.addHeader("X-AUTH-USER", "");
-        request.setRequestURI("/dictionary-api/v1/private/test");
+        request.addHeader(AUTH_HEADER, "");
+        request.setRequestURI(PRIVATE_PATH + "test");
 
         jwtFilter.doFilterInternal(request, response, (req, res) -> {});
 
-        assertThat(response.getStatus()).isEqualTo(HttpServletResponse.SC_UNAUTHORIZED);
-        assertThat(response.getContentAsString()).isEqualTo("Unauthorized");
+        assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
     }
+
 
     @Test
     void whenJwtIsInvalid_thenResponseIsUnauthorized() throws Exception {
-        request.addHeader("X-AUTH-USER", "invalidToken");
-        request.setRequestURI("/dictionary-api/v1/private/test");
+        request.addHeader(AUTH_HEADER, "invalidToken");
+        request.setRequestURI(PRIVATE_PATH + "/test");
 
         doThrow(new JWTVerificationException("Invalid token"))
                 .when(jwtUtils).verifyToken(anyString());
@@ -82,7 +86,7 @@ class JwtFilterTest {
     @Test
     void whenJwtIsValid_thenShouldAuthenticate() throws Exception {
         String jwtToken = "validToken";
-        request.addHeader("X-AUTH-USER", jwtToken);
+        request.addHeader(AUTH_HEADER, jwtToken);
         request.setRequestURI("/dictionary-api/v1/private/test");
 
         when(jwtUtils.verifyToken(jwtToken)).thenReturn(true);

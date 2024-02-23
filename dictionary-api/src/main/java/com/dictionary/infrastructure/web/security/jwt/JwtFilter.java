@@ -39,10 +39,12 @@ public class JwtFilter extends OncePerRequestFilter {
         try {
 
             String jwtHeader = request.getHeader(X_AUTH_USER);
-            if (StringUtils.isEmpty(jwtHeader)) {
+            String requestURI = request.getRequestURI();
+            if (StringUtils.isEmpty(jwtHeader) || requestURI.contains(RouteMapping.PUBLIC_API)){
                 filterChain.doFilter(request, response);
                 return;
             }
+
 
             this.jwtUtils.verifyToken(jwtHeader);
 
