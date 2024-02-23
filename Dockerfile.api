@@ -1,4 +1,10 @@
+# Dockerfile.api
+
+# Etapa de construcción
 FROM amazoncorretto:21 as builder
+
+# Validando cache para recompilar
+ARG CACHEBUST=1 
 
 WORKDIR /app/dictionary-api
 
@@ -6,12 +12,12 @@ COPY /dictionary-api .
 
 RUN ./gradlew build --info
 
-## Deploy
-FROM amazoncorretto:21 
+# Etapa de despliegue
+FROM amazoncorretto:21
 
 WORKDIR /opt
 
-COPY --from=builder ./app/dictionary-api/build/libs/dictionary-api-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=builder /app/dictionary-api/build/libs/dictionary-api-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
