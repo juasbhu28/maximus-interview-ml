@@ -29,6 +29,7 @@ public class JwtUtils {
         }
         return algorithm;
     }
+
     public String createToken(UserDetails userDetails) {
         var tokenBuilder = JWT.create()
                 .withSubject(userDetails.getUsername())
