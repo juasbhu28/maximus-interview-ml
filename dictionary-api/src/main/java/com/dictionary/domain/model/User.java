@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -13,6 +14,6 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private Set<Role> roles = new HashSet<>();
+    private List<Role> roles;
 
 }

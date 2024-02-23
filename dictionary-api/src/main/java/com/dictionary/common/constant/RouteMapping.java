@@ -1,7 +1,6 @@
 package com.dictionary.common.constant;
 
 public final class RouteMapping {
-
     private RouteMapping() {
         throw new IllegalStateException("Utility class");
     }
@@ -14,6 +13,12 @@ public final class RouteMapping {
 
     public static final String AUTH_API_ROOT = PUBLIC_API + "/auth";
     public static final String LOGIN_API = "/login";
+
+    //DICTIONARY
+    public static final String DICTIONARY_API_ROOT = PRIVATE_API + "/dictionary";
+    public static final String GET_DICTIONARY = "/";
+
+
 
 }
 

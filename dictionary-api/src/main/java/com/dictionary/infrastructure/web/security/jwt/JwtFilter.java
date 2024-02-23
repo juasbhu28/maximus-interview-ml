@@ -2,20 +2,26 @@ package com.dictionary.infrastructure.web.security.jwt;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.dictionary.application.service.UserSecurityService;
+import com.dictionary.common.constant.RouteMapping;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Slf4j
+@Component
 public class JwtFilter extends OncePerRequestFilter {
 
     private static final String X_AUTH_USER = "X-AUTH-USER";
@@ -33,8 +39,9 @@ public class JwtFilter extends OncePerRequestFilter {
         try {
 
             String jwtHeader = request.getHeader(X_AUTH_USER);
-            if (jwtHeader == null || jwtHeader.isEmpty()) {
-                throw new JWTVerificationException("Invalid Authorization header");
+            if (StringUtils.isEmpty(jwtHeader)) {
+                filterChain.doFilter(request, response);
+                return;
             }
 
             this.jwtUtils.verifyToken(jwtHeader);
@@ -58,4 +65,5 @@ public class JwtFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
 
     }
+
 }

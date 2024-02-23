@@ -1,9 +1,17 @@
 package com.dictionary.application.controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.dictionary.application.RepositoryMocksConfiguration;
 import com.dictionary.application.dto.AuthRequest;
 import com.dictionary.application.service.UserSecurityService;
 import com.dictionary.common.constant.RouteMapping;
-import com.dictionary.infrastructure.persistence.crud.UserCrudRepository;
 import com.dictionary.infrastructure.persistence.repository.UserRepositoryImpl;
 import com.dictionary.infrastructure.web.security.jwt.JwtUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,9 +19,6 @@ import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -27,18 +32,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-@Import(AuthControllerTest.TestConfig.class)
 @WebMvcTest(controllers = AuthController.class)
 @AutoConfigureMockMvc(addFilters = false)
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, JpaRepositoriesAutoConfiguration.class})
+@Import({RepositoryMocksConfiguration .class})
 class AuthControllerTest {
 
     @Autowired
@@ -55,9 +51,6 @@ class AuthControllerTest {
 
     @MockBean
     private JwtUtils jwtUtils;
-
-    @MockBean
-    private UserCrudRepository userCrudRepository;
 
     @Test
     void givenRequestEmpty_ShouldReturnBadRequest() throws Exception {

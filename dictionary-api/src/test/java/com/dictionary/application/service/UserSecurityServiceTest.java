@@ -1,5 +1,6 @@
 package com.dictionary.application.service;
 
+import com.dictionary.domain.model.Role;
 import com.dictionary.domain.model.User;
 import com.dictionary.domain.repository.IUserRepository;
 import com.dictionary.infrastructure.persistence.repository.UserRepositoryImpl;
@@ -10,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -25,12 +28,15 @@ class UserSecurityServiceTest {
   private UserSecurityService userSecurityService;
 
   @Test
-  void loadUserByUsername_whenUserExists_thenReturnsUser() {
+  void loadUserByUsername_whenUserExists_thenReturnsUserWithAuthorities() {
     // Arrange
     String username = "testUser";
     User mockUser = new User();
     mockUser.setUsername(username);
     mockUser.setPassword("password123");
+    Role role = new Role();
+    role.setName("USER");
+    mockUser.setRoles(List.of(role));
     given(userRepository.findByUsername(username)).willReturn(java.util.Optional.of(mockUser));
 
     // Act
@@ -38,6 +44,9 @@ class UserSecurityServiceTest {
 
     // Assert
     assertEquals(username, userDetails.getUsername());
+    assertEquals( userDetails.getAuthorities().size(), 1);
+    String roleSpringSecurityDefaultPrefix = "ROLE_";
+    assertEquals(roleSpringSecurityDefaultPrefix + "USER", userDetails.getAuthorities().iterator().next().getAuthority());
   }
 
   @Test
