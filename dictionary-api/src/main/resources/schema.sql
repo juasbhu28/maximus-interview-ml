@@ -19,3 +19,24 @@ CREATE TABLE IF NOT EXISTS users_roles (
   CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES "roles"(id) ON DELETE CASCADE,
   PRIMARY KEY (user_id, role_id)
 );
+
+
+-- Crear la tabla words
+CREATE TABLE words (
+    id SERIAL PRIMARY KEY,
+    word VARCHAR(50) NOT NULL
+);
+
+-- Crear la tabla sites (correspondiente a países)
+CREATE TABLE sites (
+    id SERIAL PRIMARY KEY,
+    code VARCHAR(50) NOT NULL UNIQUE,
+    description VARCHAR(100) NOT NULL
+);
+
+-- Crear la tabla de relación entre sitios y palabras
+CREATE TABLE site_words (
+    site_id INTEGER REFERENCES sites(id),
+    word_id INTEGER REFERENCES words(id),
+    PRIMARY KEY (site_id, word_id)
+);

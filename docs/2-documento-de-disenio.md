@@ -84,7 +84,7 @@ La imagen a continuación muestra el diagrama de la solución:
 | [validateResponseDTO](#validateresponsedto) | Modelo de datos de las publicaciones validadas al responder. | - **site**: País al que pertenece la palabra.  </br> - **total**: Número de publicaciones procesadas.  </br> - **posts**: Mensajes de las publicaciones. Lista de strings |
 | [statsResponseDTO](#statsresponsedto) | Modelo de datos de las estadísticas de las publicaciones procesadas. | - **request**: Identificador único de la petición.  </br> - **posts**: Número de publicaciones procesadas.  |
 
-#### dictionaryResponseDTO
+#### siteResponseDTO
 
 ```json
     [
@@ -171,6 +171,12 @@ Para la persistencia de los datos, se utilizó H2 Database, una base de datos en
   - id: Identificador único de la estadística.
   - request: Identificador único de la petición.
   - posts: Número de publicaciones procesadas.
+
+- **site**: Tabla que almacena los países.
+  - code: Identificador único del país.
+  - name: Nombre del país.
+  - description: Descripción del país.
+
 
 **Diagrama de Base de Datos**:
 

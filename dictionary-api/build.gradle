@@ -41,6 +41,8 @@ dependencies {
 	// OpenAPI docs
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.3.0'
 
+
+
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
@@ -70,7 +72,6 @@ def excludesClasses = [
 							'**/config/**/*.class',
 							'**/exception/**/*.class',
 							'**/mapper/**/*.class',
-							'**/service/**/*.class',
 							'**/entity/**/*.class',
 					]
 

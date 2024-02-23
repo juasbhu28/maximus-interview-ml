@@ -22,24 +22,4 @@ public interface UserMapper {
     @InheritInverseConfiguration
     User toModel(UserEntity userEntity);
 
-    default RoleEntity map(Role role) {
-        if (role == null) {
-            return null;
-        }
-        RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setId(role.getId());
-        roleEntity.setName(role.getName());
-        return roleEntity;
-    }
-
-    default Role map(RoleEntity roleEntity) {
-        if (roleEntity == null) {
-            return null;
-        }
-        Role role = new Role();
-        role.setId(roleEntity.getId());
-        role.setName(roleEntity.getName());
-        return role;
-    }
-
 }

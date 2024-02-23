@@ -1,5 +1,6 @@
 package com.dictionary.application.service;
 
+import com.dictionary.domain.model.Role;
 import com.dictionary.domain.repository.IUserRepository;
 import com.dictionary.infrastructure.persistence.repository.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,15 @@ public class UserSecurityService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         com.dictionary.domain.model.User userEntity = userRepository.findByUsername(username)
-                .orElseThrow( () -> new UsernameNotFoundException("User not found "));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        String[] roles = userEntity.getRoles().stream().map(Role::getName).toArray(String[]::new);
+
 
         return User.builder()
                 .username(userEntity.getUsername())
                 .password(userEntity.getPassword())
+                .roles(roles)
                 .build();
     }
 
