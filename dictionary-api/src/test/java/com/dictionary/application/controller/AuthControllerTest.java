@@ -9,11 +9,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.dictionary.application.RepositoryMocksConfiguration;
-import com.dictionary.application.dto.AuthRequest;
+import com.dictionary.application.dto.AuthRequestDto;
 import com.dictionary.application.service.UserSecurityService;
 import com.dictionary.common.constant.RouteMapping;
 import com.dictionary.infrastructure.persistence.repository.UserRepositoryImpl;
-import com.dictionary.infrastructure.web.security.jwt.JwtFilter;
 import com.dictionary.infrastructure.web.security.jwt.JwtUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManagerFactory;
@@ -57,31 +56,31 @@ class AuthControllerTest {
     @Test
     void givenRequestEmpty_ShouldReturnBadRequest() throws Exception {
         //Arrange
-        AuthRequest authRequest = new AuthRequest("", "");
+        AuthRequestDto authRequestDto = new AuthRequestDto("", "");
 
         //Act & Assert
         mockMvc.perform(post(RouteMapping.AUTH_API_ROOT + RouteMapping.LOGIN_API)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(authRequest)))
+                        .content(asJsonString(authRequestDto)))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     void giveRequestNull_ShouldReturnBadRequest() throws Exception {
         //Arrange
-        AuthRequest authRequest = new AuthRequest(null, null);
+        AuthRequestDto authRequestDto = new AuthRequestDto(null, null);
 
         //Act & Assert
         mockMvc.perform(post(RouteMapping.AUTH_API_ROOT + RouteMapping.LOGIN_API)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(authRequest)))
+                        .content(asJsonString(authRequestDto)))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     void testLoginSuccess() throws Exception {
         //Arrange
-        AuthRequest authRequest = new AuthRequest("user", "password");
+        AuthRequestDto authRequestDto = new AuthRequestDto("user", "password");
         UserDetails mockUserDetails = mock(UserDetails.class);
         String expectedToken = "token";
 
@@ -92,7 +91,7 @@ class AuthControllerTest {
         //Act
         mockMvc.perform(post(RouteMapping.AUTH_API_ROOT + RouteMapping.LOGIN_API)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(authRequest)))
+                        .content(asJsonString(authRequestDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.accessToken").exists());
 
@@ -105,7 +104,7 @@ class AuthControllerTest {
     @Test
     void loginFailure_badCredentials() throws Exception {
         // Arrange
-        AuthRequest authRequest = new AuthRequest("wrongUser", "password");
+        AuthRequestDto authRequestDto = new AuthRequestDto("wrongUser", "password");
 
         given(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .willThrow(new BadCredentialsException("Bad credentials"));
@@ -113,7 +112,7 @@ class AuthControllerTest {
         // Act & Assert
         mockMvc.perform(post(RouteMapping.AUTH_API_ROOT + RouteMapping.LOGIN_API)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(authRequest)))
+                        .content(asJsonString(authRequestDto)))
                 .andExpect(status().isUnauthorized());
     }
 

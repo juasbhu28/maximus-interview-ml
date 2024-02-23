@@ -40,3 +40,13 @@ CREATE TABLE site_words (
     word_id INTEGER REFERENCES words(id),
     PRIMARY KEY (site_id, word_id)
 );
+
+-- Crear la tabla de estadísticas
+CREATE TABLE stats (
+    id SERIAL PRIMARY KEY,
+    request VARCHAR(1000) NOT NULL,
+    response VARCHAR(1000) NOT NULL,
+    executionTime BIGINT NOT NULL,
+    requestId UUID NOT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL
+);

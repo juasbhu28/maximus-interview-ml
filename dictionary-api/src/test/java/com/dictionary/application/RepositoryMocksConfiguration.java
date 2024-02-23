@@ -2,6 +2,7 @@ package com.dictionary.application;
 
 import com.dictionary.application.service.UserSecurityService;
 import com.dictionary.infrastructure.persistence.crud.SiteCrudRepository;
+import com.dictionary.infrastructure.persistence.crud.StatsCrudRepository;
 import com.dictionary.infrastructure.persistence.crud.UserCrudRepository;
 import com.dictionary.infrastructure.web.security.jwt.JwtFilter;
 import com.dictionary.infrastructure.web.security.jwt.JwtUtils;
@@ -18,6 +19,9 @@ public class RepositoryMocksConfiguration {
 
     @MockBean
     private UserCrudRepository userCrudRepository;
+
+    @MockBean
+    private StatsCrudRepository statsCrudRepository;
 
 
 }
