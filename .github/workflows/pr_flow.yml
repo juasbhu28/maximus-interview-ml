@@ -32,5 +32,3 @@ jobs:
           git checkout develop
           git merge --no-ff ${{ github.event.pull_request.head.ref }}
           git push origin develop
-        
-## TODO:  merge with develop and then with main if test ok
