@@ -9,3 +9,13 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME:dictionary}
     password: ${SPRING_DATASOURCE_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
+
+app:
+  jwt:
+    secret: secret
+    issuer: juansebohu
+    expiration:
+      access-token: 86400000 # 1 day
+
+  security:
+    ignored: /swagger-resources/**, /swagger-ui.html, /v2/api-docs
