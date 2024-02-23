@@ -3,7 +3,6 @@ package com.dictionary.infrastructure.web.security.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -14,34 +13,33 @@ import java.util.Date;
 public class JwtUtils {
 
     @Value("${app.jwt.expiration.access-token}")
-    private long getExpirationAccessToken;
+    private long expirationAccessToken;
 
     @Value("${app.jwt.secret}")
-    private String getSecretKey;
+    private String secretKey;
 
     @Value("${app.jwt.issuer}")
-    private String getIssuer;
+    private String issuer;
 
     private Algorithm algorithm;
 
-    // Lazily initialize the Algorithm
     private Algorithm getAlgorithm() {
         if (algorithm == null) {
-            algorithm = Algorithm.HMAC256(getSecretKey);
+            algorithm = Algorithm.HMAC256(secretKey);
         }
         return algorithm;
     }
     public String createToken(UserDetails userDetails) {
         var tokenBuilder = JWT.create()
                 .withSubject(userDetails.getUsername())
-                .withIssuer(getIssuer)
+                .withIssuer(issuer)
                 .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + getExpirationAccessToken));
+                .withExpiresAt(new Date(System.currentTimeMillis() + expirationAccessToken));
 
         return tokenBuilder.sign(getAlgorithm());
     }
 
-    public boolean verifyToken(String jwt) {
+    public boolean verifyToken(String jwt) throws JWTVerificationException{
         try {
             JWT.require(getAlgorithm())
                     .build()

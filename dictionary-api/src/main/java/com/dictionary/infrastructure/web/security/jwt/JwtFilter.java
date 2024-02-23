@@ -45,9 +45,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 throw new JWTVerificationException("Invalid Authorization header");
             }
 
-            if (!this.jwtUtils.verifyToken(jwtHeader)) {
-                throw new JWTVerificationException("Invalid token");
-            }
+            this.jwtUtils.verifyToken(jwtHeader);
 
             String username = this.jwtUtils.getUserToken(jwtHeader);
             User user = (User) this.userSecurityService.loadUserByUsername(username);
