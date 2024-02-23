@@ -6,17 +6,14 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.io.IOException;
 
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
@@ -34,11 +31,6 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
-
-            if (pathAllow(request.getRequestURI())) {
-                filterChain.doFilter(request, response);
-                return;
-            }
 
             String jwtHeader = request.getHeader(X_AUTH_USER);
             if (jwtHeader == null || jwtHeader.isEmpty()) {
@@ -65,10 +57,5 @@ public class JwtFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
 
-    }
-
-    private boolean pathAllow(String path) {
-        //Evaluate if the path contains /dictionary-api/vi/public/
-        return path.contains("/dictionary-api/v1/public/");
     }
 }
